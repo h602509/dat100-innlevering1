@@ -9,23 +9,34 @@ public class O1 {
 		String inntektTxt = showInputDialog("Oppgi inntekt");
 		int inntekt = Integer.parseInt(inntektTxt);
 		double skatt = 0;
+		int skatteFriInntekt = 164100;
+		int skatteTrinn1 = 230590;
+		int skatteTrinn2 = 580650;
+		int skatteTrinn3 = 934050;
+		double skatt1 = (skatteTrinn1 - skatteFriInntekt) * 0.0093;
+		double skatt2 = (skatteTrinn2 - skatteTrinn1) * 0.0241;
+		double skatt3 = (skatteTrinn3 - skatteTrinn2) * 0.1152;
 
-		if (inntekt <= 164100) {
+		if (inntekt <= skatteFriInntekt) {
+		}
 
-		} else if (inntekt <= 230950) {
-			skatt = inntekt * 0.0093;
+		if (inntekt > skatteFriInntekt && inntekt <= skatteTrinn1) {
+			skatt = (inntekt - skatteFriInntekt) * 0.0093;
+		}
 
-		} else if (inntekt <= 580650) {
-			skatt = inntekt * 0.0241;
+		if (inntekt > skatteTrinn1 && inntekt <= skatteTrinn2) {
+			skatt = skatt1 + (inntekt - skatteTrinn1) * 0.0241;
+		}
 
-		} else if (inntekt <= 934050) {
-			skatt = inntekt * 0.1152;
+		if (inntekt > skatteTrinn2 && inntekt <= skatteTrinn3) {
+			skatt = skatt1 + skatt2 + (inntekt - skatteTrinn2) * 0.1152;
+		}
 
-		} else 
-			skatt = inntekt * 0.1452;
-		
-		System.out.println("beregnet skatt: " + (int)(skatt+0.5) + ",- runnet av til nærmeste krone");
+		if (inntekt > skatteTrinn3) {
+			skatt = skatt1 + skatt2 + skatt3 + (inntekt - skatteTrinn3) * 0.1452;
+		}
+
+		System.out.println("beregnet skatt: " + (int) (skatt + 0.5) + ",- runnet av til nærmeste krone");
 
 	}
-
 }
